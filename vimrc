@@ -11,6 +11,11 @@
           \ https://github.com/junegunn/seoul256.vim/raw/master/colors/seoul256.vim
   endif
 
+  if empty(glob("~/.vim/colors/onedark.vim"))
+    silent !curl -fLo ~/.vim/colors/onedark.vim --create-dirs
+          \ https://github.com/joshdick/onedark.vim/raw/master/colors/onedark.vim
+  endif
+
   if empty(glob("~/.vim/colors/lucius.vim"))
     silent !curl -fLo ~/.vim/colors/lucius.vim --create-dirs
           \ https://raw.githubusercontent.com/bag-man/dotfiles/master/lucius.vim
