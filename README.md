@@ -1,0 +1,2 @@
+* Hammerspoon config
+* Vim config
