@@ -1,0 +1,22 @@
+{
+    "search.useIgnoreFiles": false,
+    "editor.fontLigatures": true,
+    "editor.fontSize": 12,
+    "editor.renderIndentGuides": true,
+    "editor.minimap.enabled": false,
+    "files.insertFinalNewline": true,
+    "breadcrumbs.enabled": true,
+    "editor.tabCompletion": "on",
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+    },
+    "go.testFlags": [
+        "-count=1",
+        "-race",
+        "-v"
+    ],
+    "go.coverOnSingleTest": true,
+    "editor.renderWhitespace": "all",
+    "files.autoSave": "onWindowChange",
+    "window.zoomLevel": 0
+}
