@@ -121,6 +121,7 @@ Plug 'shime/vim-livedown'
 Plug 'w0rp/ale'
 Plug 'fatih/vim-go'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
