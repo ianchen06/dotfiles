@@ -150,10 +150,11 @@ let g:ycm_python_binary_path = 'python'
 
 " vim-go
 let g:go_fmt_command = "goimports"
+let g:go_version_warning = 0
 
 " auto-pairs
 let g:AutoPairsMapCh=0 " Map <C-h> to delete brackets, quotes in pair. Default=1
-let g:AutoPairsWildClosedPair = ‘’
+let g:AutoPairsWildClosedPair = ''
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
-let g:AutoPairsShortcutBackInsert = ‘<c-b>’
+let g:AutoPairsShortcutBackInsert = '<c-b>'
