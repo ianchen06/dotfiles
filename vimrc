@@ -239,6 +239,8 @@ Plug 'mattn/emmet-vim'
 Plug 'tmhedberg/matchit'
 Plug 'hashivim/vim-terraform'
 Plug 'andrewstuart/vim-kubernetes'
+Plug 'fatih/vim-go'
+Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
 
@@ -262,4 +264,8 @@ let g:UltiSnipsSnippetsDir="/Users/ian/.vim/plugged/vim-snippets/snippets"
 let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_python_binary_path = 'python3'
+let g:ycm_python_binary_path = 'python'
+
+" vim-go
+let g:go_fmt_command = "goimports"
+
