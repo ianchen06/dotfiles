@@ -1,3 +1,5 @@
+set pythonthreedll=/Users/ian/.pyenv/versions/3.8.6/Python.framework/Versions/3.8/Python
+set pythonthreehome=/Users/ian/.pyenv/versions/3.8.6/Python.framework/Versions/3.8
 """ Auto Installation
 
 if empty(glob("~/.vim/autoload/plug.vim"))
@@ -146,7 +148,7 @@ let g:UltiSnipsSnippetsDir="/Users/ian/.vim/plugged/vim-snippets/snippets"
 let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_python_binary_path = 'python'
+let g:ycm_python_binary_path = '/Users/ian/.pyenv/shims/python'
 
 " vim-go
 let g:go_fmt_command = "goimports"
