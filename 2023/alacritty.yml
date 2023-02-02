@@ -1,0 +1,8 @@
+env:
+  #TERM: alacritty
+  TERM: xterm-256color
+font:
+  normal:
+    family: "MesloLGS NF"
+import:
+  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
