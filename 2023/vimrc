@@ -1,21 +1,74 @@
+" zo Open fold at cursor
+" zm Open fold at cursor
+
+""" Auto Installation
 if empty(glob("~/.vim/autoload/plug.vim"))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   auto VimEnter * PlugInstall
 endif
 
-call plug#begin('~/.vim/plugged')
-Plug 'vimwiki/vimwiki'
+""" Undo
+if !isdirectory($HOME . "/.vim/undodir")
+  call mkdir($HOME . "/.vim/undodir", "p")
+endif
+set undofile
+set undodir=~/.vim/undodir
+
+""" Plugins
+call plug#begin()
+Plug 'jiangmiao/auto-pairs'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'vim-python/python-syntax'
 call plug#end()
 
+""" General
 set nocompatible
-syntax enable
 filetype plugin indent on
+syntax on
+set termguicolors
 
-set expandtab          " Absolutely no tabs in files
-set shiftwidth=2       " Number of spaces to use for (auto)indent step
-set softtabstop=2      " Number of spaces that <Tab> uses while editing
+" macos yank to clipboard
+set clipboard=unnamed
 
+""" Color
+colorscheme catppuccin-macchiato
+
+""" Tab
+set tabstop=4       " Set tabs to 4 characaters wide
+set shiftwidth=4    " Set indentation width to match tab
+set expandtab       " Use spaces instead of actual hard tabs
+set softtabstop=4   " Set the soft tab to match the hard tab width
+set autoindent      " Enable basic auto indentation
+set copyindent      " Preserve manual indentation
+
+""" Appearance
+set nowrap          " No word wrap
+set foldmethod=marker
+set number relativenumber
+set ruler
+set showcmd
+
+""" Highlight current line number
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+set cursorline
+
+" Pared with .tmux.conf config for navigation in tmux and vim
+function! TmuxMove(direction)
+  let wnr = winnr()
+  silent! execute 'wincmd ' . a:direction
+  " If the winnr is still the same after we moved, it is the last pane
+  if wnr == winnr()
+    call system('tmux select-pane -' . tr(a:direction, 'phjkl', 'lLDUR'))
+  end
+endfunction
+
+nnoremap <silent> <c-h> :call TmuxMove('h')<cr>
+nnoremap <silent> <c-j> :call TmuxMove('j')<cr>
+nnoremap <silent> <c-k> :call TmuxMove('k')<cr>
+nnoremap <silent> <c-l> :call TmuxMove('l')<cr>
+
+""" Mouse
 set mouse=a
 if has("mouse_sgr")
     set ttymouse=sgr
@@ -23,16 +76,14 @@ else
     set ttymouse=xterm2
 end
 
+""" https://blog.ojisan.io/my-netrw-configure/
 let g:netrw_preview=1 " preview は左右分割表示
 let g:netrw_liststyle=3 " tree表示
 let g:netrw_keepdir = 0 " tree開いた位置を current dir として扱う。その階層でファイル作成とかができるようになる
 let g:netrw_banner = 0 " 上のバナー消す
-"window サイズ
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 4
 
-"Netrw を toggle する関数を設定
-"元処理と異なり Vex を呼び出すことで左 window に表示
 let g:NetrwIsOpen=0
 function! ToggleNetrw()
     if g:NetrwIsOpen
@@ -50,9 +101,22 @@ function! ToggleNetrw()
     endif
 endfunction
 
-"ショートカットの設定
-"ctrl + e でtoggle
 noremap <silent><C-f> :call ToggleNetrw()<CR>
 
-" macos yank to clipboard
-set clipboard=unnamed
+" auto highlight current word under cursor
+" {{{
+set updatetime=10 " Short updatetime so the CursorHold event fires fairly often
+
+function! HighlightWordUnderCursor()
+  if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]' 
+    exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/' 
+  else 
+    match none 
+  endif
+endfunction
+
+autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+" }}}
+
+""" vim-python/python-syntax
+let g:python_highlight_all = 1
