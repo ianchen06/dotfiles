@@ -1,0 +1,45 @@
+set nocompatible
+syntax enable
+filetype plugin indent on
+
+set expandtab          " Absolutely no tabs in files
+set shiftwidth=2       " Number of spaces to use for (auto)indent step
+set softtabstop=2      " Number of spaces that <Tab> uses while editing
+
+set mouse=a
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+
+let g:netrw_preview=1 " preview は左右分割表示
+let g:netrw_liststyle=3 " tree表示
+let g:netrw_keepdir = 0 " tree開いた位置を current dir として扱う。その階層でファイル作成とかができるようになる
+let g:netrw_banner = 0 " 上のバナー消す
+"window サイズ
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 4
+
+"Netrw を toggle する関数を設定
+"元処理と異なり Vex を呼び出すことで左 window に表示
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Vex
+    endif
+endfunction
+
+"ショートカットの設定
+"ctrl + e でtoggle
+noremap <silent><C-f> :call ToggleNetrw()<CR>
