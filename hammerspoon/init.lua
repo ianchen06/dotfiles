@@ -41,6 +41,7 @@ other_tap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, other_handler)
 other_tap:start()
 
 local simpleCmd = false
+local simpleShift = false
 local map = hs.keycodes.map
 local function eikanaEvent(event)
     local c = event:getKeyCode()
@@ -49,7 +50,18 @@ local function eikanaEvent(event)
         if f['cmd'] then
             simpleCmd = true
         end
+        if f['rightshift'] then
+          simpleShift = true
+      end
     elseif event:getType() == hs.eventtap.event.types.flagsChanged then
+      if not f['shift'] then
+        if simpleShift == false then
+            if c == map['rightshift'] then
+              hs.keycodes.setMethod('Hiragana')
+            end
+        end
+        simpleShift = false
+    end
         if not f['cmd'] then
             if simpleCmd == false then
                 if c == map['cmd'] then
